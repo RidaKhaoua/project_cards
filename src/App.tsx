@@ -1,15 +1,14 @@
 
 import './App.css'
-
+import ProductCards from './components/ProductCards/ProductCards'
+import { data } from './data/data'
 function App() {
 
 
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
+    <main className='container'>
+       <ProductCards products={data}/> 
+    </main>
   )
 }
 
