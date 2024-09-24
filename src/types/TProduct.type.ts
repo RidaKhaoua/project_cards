@@ -1,9 +1,9 @@
 export type TProduct = {
-    id: string | undefined,
-    imgUrl : string,
+    id?: string | undefined,
+    imageUrl : string,
     title: string,
     description: string,
-    price: number,
+    price: string,
     color: string[],
     category: {
         name: string,

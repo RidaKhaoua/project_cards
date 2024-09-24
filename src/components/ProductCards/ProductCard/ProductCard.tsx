@@ -10,7 +10,7 @@ function ProductCard({product}: TPrpos) {
   return (
     <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded p-4">
       <Image
-        imgUlr={product.imgUrl}
+        imgUlr={product.imageUrl}
         alt={product.title}
         className=" w-full h-1/2 rounded object-cover"
       />
