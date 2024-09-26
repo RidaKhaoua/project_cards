@@ -10,7 +10,7 @@ export const data: TProduct[] = [
         ducimus animi assumenda doloremque, ad quam deserunt reprehenderit
         tempore optio vel rerum?`,
     imageUrl: "https://i.pinimg.com/736x/cf/c7/8d/cfc78d125a3f3f9175064452b47bb8cc.jpg",
-    price: 500000,
+    price: "500000",
     color:["#FF0032", "#2563eb"],
     category: {
         name:"cars",
@@ -25,7 +25,7 @@ export const data: TProduct[] = [
         ducimus animi assumenda doloremque, ad quam deserunt reprehenderit
         tempore optio vel rerum?`,
     imageUrl: "https://archive.challenge.ma/wp-content/uploads/2022/09/Bugatti-W16_Mistral-2024-1600-01-1.jpg",
-    price: 1000000,
+    price: "1000000",
     color:["#FF0032", "#2563eb"],
     category: {
         name:"cars",
@@ -40,7 +40,7 @@ export const data: TProduct[] = [
         ducimus animi assumenda doloremque, ad quam deserunt reprehenderit
         tempore optio vel rerum?`,
     imageUrl: "https://cdn.motor1.com/images/mgl/W8GWyL/s1/pagani-imola-roadster.webp",
-    price: 900000,
+    price: "900000",
     color:["#FF0032", "#2563eb"],
     category: {
         name:"cars",
@@ -55,7 +55,7 @@ export const data: TProduct[] = [
         ducimus animi assumenda doloremque, ad quam deserunt reprehenderit
         tempore optio vel rerum?`,
     imageUrl: "https://cdn.motor1.com/images/mgl/W8GWyL/s1/pagani-imola-roadster.webp",
-    price: 900000,
+    price: "900000",
     color:["#FF0032", "#2563eb"],
     category: {
         name:"cars",

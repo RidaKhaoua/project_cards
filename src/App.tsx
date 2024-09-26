@@ -9,6 +9,8 @@ import { TProduct } from "./types";
 import validationProduct from "./validation/productValidation";
 import Error from "./components/ui/Error/Error";
 import Colors from "./components/Colors/Colors";
+import {v4 as uuid} from "uuid";
+
 const defaultProduct = {
   title: "",
   description: "",
@@ -22,13 +24,32 @@ const defaultProduct = {
 };
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const [product, setproduct] = useState<TProduct>(defaultProduct);
+  const [product, setProduct] = useState<TProduct>(defaultProduct);
+  const [colorSelected, setColorSelected] = useState<string[]>([]);
+  const [products, setProducts] = useState<TProduct[]>(data);
   const [error, setError] = useState({
     title: "",
     description: "",
     imageUrl: "",
     price: "",
   });
+
+  /* START FUNCTIONS */
+  const handleSelectColor = (color: string) => {
+    if (colorSelected.includes(color)) {
+      return;
+    }
+    setColorSelected((prev) => [...prev, color]);
+  };
+
+  const handleRemoveSelectedColor = (color: string) => {
+    // color = #00000
+    // colorsSelected = ["#98099", "#0000000", "#F00933"];
+    const newSelectedColor = colorSelected.filter(
+      (colorSelected) => colorSelected !== color
+    );
+    setColorSelected([...newSelectedColor]);
+  };
 
   const closeModal = () => {
     setIsOpen(false);
@@ -40,18 +61,18 @@ function App() {
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setproduct({
+    setProduct({
       ...product,
       [name]: value,
     });
-   setError({
-    ...error,
-    [name] : ""
-   })
+    setError({
+      ...error,
+      [name]: "",
+    });
   };
 
   const handelCancel = () => {
-    setproduct(defaultProduct);
+    setProduct(defaultProduct);
     setError({ title: "", description: "", imageUrl: "", price: "" });
     closeModal();
   };
@@ -69,14 +90,20 @@ function App() {
       Object.values(errors).some((error) => error === "") &&
       Object.values(errors).every((error) => error === ""); // true
     // false => true | true => false;
-    console.log(Object.values(errors));
     if (!hasError) {
       setError(errors);
       return;
     }
-    console.log("send the data");
+   
+    setProducts(prev => [{id:uuid(),...product, color: [...colorSelected],...prev,}])
+    setProduct(defaultProduct);
+    setColorSelected([]);
+    closeModal();
   };
 
+  /* END FUNCTION */
+
+  // Render
   const renderInpts = inputData.map((input) => (
     <div className="flex flex-col space-y-1 mb-8">
       <label
@@ -96,7 +123,6 @@ function App() {
     </div>
   ));
 
-  
   return (
     <main className="container py-3">
       <Button
@@ -107,11 +133,16 @@ function App() {
         }}>
         ADD PRODUCT
       </Button>
-      <ProductCards products={data} />
+      <ProductCards products={products} />
       <Modal isOpen={isOpen} closeModal={closeModal} title="Add a new product">
         <form action="" onSubmit={handelFormSubmit}>
           {renderInpts}
-          <Colors colors={colors}/>
+          <Colors
+            colors={colors}
+            colorSelected={colorSelected}
+            handleSelectColor={handleSelectColor}
+            handleRemoveSelectedColor={handleRemoveSelectedColor}
+          />
           <div className="flex space-x-2 items-center">
             <Button className="bg-purple-700">Submit</Button>
             <Button

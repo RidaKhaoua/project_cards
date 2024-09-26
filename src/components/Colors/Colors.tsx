@@ -1,37 +1,38 @@
-import { useState } from "react";
+import { HtmlHTMLAttributes, useState } from "react";
 import Circle from "../ui/Circle/Circle";
 
-type TPrpos = {
+interface IPrpos extends HtmlHTMLAttributes<HTMLDivElement> {
   colors: string[];
-};
+  colorSelected: string[];
+  handleSelectColor: (val: string) => void;
+  handleRemoveSelectedColor: (val: string) => void
+}
 
-function Colors({ colors }: TPrpos) {
-  const [colorSelected, setColorSelected] = useState<string[]>([]);
+function Colors({ colors,colorSelected, handleSelectColor, handleRemoveSelectedColor, ...rest }: IPrpos) {
 
-  const handleSelectColor = (color: string) => {
-    setColorSelected([...colorSelected, color]);
-  };
+
 
   const renderColors = colors.map((color) => (
     <Circle
+      key={color}
       color={color}
       onClick={() =>
         colorSelected.includes(color) ? "" : handleSelectColor(color)
       }
       colorsSelecteds={colorSelected}
+      {...rest}
     />
   ));
 
   const renderSelectedColor = colorSelected.map((color) => (
     <div
+      key={color}
       className="w-fit rounded text-white py-1 px-2 cursor-pointer"
       style={{ backgroundColor: color }}
       onClick={() => {
-        const newColors = colorSelected.filter(
-          (colorItem) => colorItem !== color
-        );
-        setColorSelected([...newColors]);
-      }}>
+       handleRemoveSelectedColor(color)
+      }}
+      >
       {color}
     </div>
   ));
