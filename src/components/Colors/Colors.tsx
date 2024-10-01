@@ -1,4 +1,4 @@
-import { HtmlHTMLAttributes, useState } from "react";
+import { HtmlHTMLAttributes } from "react";
 import Circle from "../ui/Circle/Circle";
 
 interface IPrpos extends HtmlHTMLAttributes<HTMLDivElement> {
@@ -17,7 +17,7 @@ function Colors({ colors,colorSelected, handleSelectColor, handleRemoveSelectedC
       key={color}
       color={color}
       onClick={() =>
-        colorSelected.includes(color) ? "" : handleSelectColor(color)
+         handleSelectColor(color)
       }
       colorsSelecteds={colorSelected}
       {...rest}
@@ -43,6 +43,7 @@ function Colors({ colors,colorSelected, handleSelectColor, handleRemoveSelectedC
         {renderSelectedColor}
       </div>
       <div className="flex items-center space-x-1">{renderColors}</div>
+    
     </div>
   );
 }

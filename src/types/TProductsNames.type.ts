@@ -1,0 +1,1 @@
+export type TProductsNames = "title" | "description" | "imageUrl" | "price"

@@ -1,13 +1,40 @@
-import { TProduct } from "../../../types";
+import { TCategorie, TProduct } from "../../../types";
 import Button from "../../ui/Button/Button";
 import Image from "../../ui/Image/Image";
-import {removeTextAndReplaceItWithThreeDots} from "../../../utils/functions"
+import { removeTextAndReplaceItWithThreeDots } from "../../../utils/functions";
 import Circle from "../../ui/Circle/Circle";
-type TPrpos = {
-  product: TProduct
-};
 
-function ProductCard({product}: TPrpos) {
+interface TPrpos {
+  product: TProduct;
+  openEditModal?: () => void;
+  setProductEdit?: (product: TProduct) => void;
+  setColorSelected?: (colors: string[]) => void;
+  productIndex: number;
+  setProductEditIndex: (val: number) => void;
+  setSelected: (val: TCategorie) => void
+}
+
+function ProductCard({
+  product,
+  productIndex,
+  setProductEditIndex,
+  openEditModal,
+  setColorSelected,
+  setProductEdit,
+  setSelected
+}: TPrpos) {
+  const handleEdit = () => {
+    if (openEditModal) {
+      openEditModal();
+      setProductEdit?.({
+        ...product,
+      });
+      // setColorSelected?.([...product.color]);
+      setProductEditIndex(productIndex);
+      setSelected({...product.category})
+    }
+  };
+
   return (
     <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded p-4">
       <Image
@@ -20,10 +47,14 @@ function ProductCard({product}: TPrpos) {
         {removeTextAndReplaceItWithThreeDots(product.description, 120)}
       </p>
       <div className="flex space-x-2 items-center my-2">
-       {product.color.map(item => <Circle color={item} key={item}/>)}
+        {product.color.map((item) => (
+          <Circle color={item} key={item} />
+        ))}
       </div>
       <div className="flex justify-between items-center">
-        <p className="text-purple-500 font-bold">${Number(product.price).toFixed(2)}</p>
+        <p className="text-purple-500 font-bold">
+          ${Number(product.price).toFixed(2)}
+        </p>
 
         <Image
           imgUlr={product.category.imageUrl}
@@ -32,8 +63,12 @@ function ProductCard({product}: TPrpos) {
         />
       </div>
       <div className="flex space-x-2 justify-between items-center mt-2">
-        <Button className="bg-indigo-600" onClick={() => alert("edit")}>Edit</Button>
-        <Button className="bg-red-600" onClick={() => alert(new Date())}>Remove</Button>
+        <Button className="bg-indigo-600" onClick={handleEdit}>
+          Edit
+        </Button>
+        <Button className="bg-red-600" onClick={() => alert(new Date())}>
+          Remove
+        </Button>
       </div>
     </div>
   );

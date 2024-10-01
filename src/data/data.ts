@@ -1,6 +1,6 @@
-import { TProduct } from "../types";
+import { TCategorie, TProduct } from "../types";
 import { TInput } from "../types/TInput";
-
+import {v4 as uuid} from "uuid";
 export const data: TProduct[] = [
   {
     id: "1",
@@ -106,4 +106,24 @@ export const colors: string[] = [
   "#1F8A70",
   "#820000",
   "#FF0032"
+]
+
+export const categories : TCategorie[] = [
+  {
+    id:uuid(),
+    name: "T-shirt",
+    imageUrl: "https://isto.pt/cdn/shop/files/Heavyweight_Black_ef459afb-ff7a-4f9a-b278-9e9621335444.webp?v=1710414950"
+  },
+  {
+    id:uuid(),
+    name: "Cars",
+    imageUrl: "https://i.pinimg.com/736x/cf/c7/8d/cfc78d125a3f3f9175064452b47bb8cc.jpg"
+  },
+  {
+    id:uuid(),
+    name: "Watches",
+    imageUrl: "https://www.midowatches.com/media/catalog/category/M026.629.11.041.00_2000x1000.jpg"
+  },
+ 
+ 
 ]

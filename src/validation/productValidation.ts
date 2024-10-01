@@ -3,6 +3,7 @@ type TProduct = {
   description: string;
   price: string;
   imageUrl: string;
+  color: string
 };
 
 const MAX_SIZE_TITLE = 80;
@@ -17,6 +18,7 @@ const validationProduct = (product: TProduct) => {
     description: "",
     imageUrl: "",
     price: "",
+    color: ""
   };
 
   const validUrl =
@@ -51,6 +53,12 @@ const validationProduct = (product: TProduct) => {
   ) {
     errors.price = "The price is not Not a Number";
   }
+
+  if(product.color.length === 0) {
+    errors.color= "you should choose a color";
+  }
+
+
   return errors;
 };
 

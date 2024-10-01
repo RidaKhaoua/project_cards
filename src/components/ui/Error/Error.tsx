@@ -3,7 +3,7 @@ type TPrpos = {
 }
 
 function Error({message}:TPrpos) {
-  return message ? <span className="text-red-500 block size-1 w-full">{message}</span> : null
+  return message ? <span className="text-red-500 block size-0 w-full pb-9 ">{message}</span> : null
   
 }
 

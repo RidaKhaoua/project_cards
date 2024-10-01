@@ -38,7 +38,7 @@ function Modal({ isOpen, title, description, children, closeModal }: TModal) {
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 mb-3">
-                    Payment successful
+                    {title}
                   </Dialog.Title>
                 )}
                 {children}
