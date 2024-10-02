@@ -1,3 +1,4 @@
+import React from "react";
 import { TCategorie, TProduct } from "../../types";
 import ProductCard from "./ProductCard/ProductCard";
 
@@ -5,30 +6,37 @@ type TPrpos = {
   products: TProduct[];
   openEditModal?: () => void;
   setProductEdit: (product: TProduct) => void;
-  setColorSelected?: (colors: string[]) => void;
-  setProductEditIndex: (val: number) => void,
-  setSelected: (val: TCategorie) => void
+  setProductEditIndex: (val: number) => void;
+  setSelected: (val: TCategorie) => void;
+  openRemoveModal: () => void;
 };
 
-function ProductCards({ products ,setProductEdit, openEditModal, setColorSelected, setProductEditIndex, setSelected }: TPrpos) {
+const  ProductCards =React.memo(({
+  products,
+  setProductEdit,
+  openEditModal,
+  openRemoveModal,
+  setProductEditIndex,
+  setSelected,
+}: TPrpos) => {
   const renderProduct = products.map((product, index) => (
     <ProductCard
       key={product.id}
       product={product}
       openEditModal={openEditModal}
       setProductEdit={setProductEdit}
-      setColorSelected={setColorSelected}
       productIndex={index}
       setProductEditIndex={setProductEditIndex}
-      setSelected={setSelected}  
+      setSelected={setSelected}
+      openRemoveModal={openRemoveModal}
+      
     />
-    
   ));
   return (
-    <div className="p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 space-y-8">
+    <div className="p-2 grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4 gap-2">
       {renderProduct}
     </div>
   );
-}
+})
 
 export default ProductCards;

@@ -1,4 +1,5 @@
 import { v4 as uuid } from "uuid";
+import toast, { Toaster } from "react-hot-toast";
 import { TProduct, TProductsNames } from "./types";
 import { colors, data, inputData, categories } from "./data/data";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -26,13 +27,17 @@ const defaultProduct = {
 };
 function App() {
   const [selected, setSelected] = useState(categories[0]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const [productEditIndex, setIsProductEditIndex] = useState(0);
+
   const [productEdit, setProductEdit] = useState<TProduct>(defaultProduct);
   const [product, setProduct] = useState<TProduct>(defaultProduct);
   const [colorSelected, setColorSelected] = useState<string[]>([]);
   const [products, setProducts] = useState<TProduct[]>(data);
+
   const [error, setError] = useState({
     title: "",
     description: "",
@@ -108,6 +113,14 @@ function App() {
     setIsEditModalOpen(true);
   };
 
+  const closeRemoveModal = () => {
+    setIsRemoveModalOpen(false);
+  };
+
+  const openRemoveModal = () => {
+    setIsRemoveModalOpen(true);
+  };
+
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     if (isEditModalOpen) {
@@ -175,6 +188,7 @@ function App() {
     setProduct(defaultProduct);
     setColorSelected([]);
     closeModal();
+    toast("The Product inserted")
   };
 
   const handelFormEdit = (e: FormEvent<HTMLFormElement>) => {
@@ -198,6 +212,21 @@ function App() {
     updatedProducts[productEditIndex].color = [...productEdit.color];
     setProducts([...updatedProducts]);
     closeEditModal();
+    toast("The product is updated with success", {
+      icon: "🔥"
+    })
+  };
+
+  const handleRemoveProduct = () => {
+    const newProductAfterRemovedProduct = products.filter(
+      (product) => product.id !== productEdit.id
+    );
+    setProducts([...newProductAfterRemovedProduct]);
+    closeRemoveModal();
+    toast("The Product delted with success", {
+      icon: "🥳",
+      style: { backgroundColor: "green", color: "white" },
+    });
   };
 
   /* END FUNCTION */
@@ -251,7 +280,7 @@ function App() {
   return (
     <main className="container py-3">
       <Button
-        className="bg-purple-500"
+        className="bg-purple-500 mx-auto block"
         width="w-fit"
         onClick={() => {
           openModal();
@@ -261,10 +290,10 @@ function App() {
       <ProductCards
         products={products}
         openEditModal={openEditModal}
-        setColorSelected={setColorSelected}
         setProductEdit={setProductEdit}
         setProductEditIndex={setIsProductEditIndex}
         setSelected={setSelected}
+        openRemoveModal={openRemoveModal}
       />
       {/* Modal Add Poduct */}
       <Modal isOpen={isOpen} closeModal={closeModal} title="Add a new product">
@@ -324,7 +353,7 @@ function App() {
           <div className="flex space-x-2 items-center">
             <Button className="bg-purple-700">Edit</Button>
             <Button
-              className="bg-gray-400"
+              className="text-black bg-gray-200 font-bold transition duration-300 hover:bg-gray-400"
               onClick={closeEditModal}
               type="button">
               Cancel
@@ -332,6 +361,31 @@ function App() {
           </div>
         </form>
       </Modal>
+
+      {/* Modal Remove Product */}
+      <Modal
+        isOpen={isRemoveModalOpen}
+        closeModal={closeRemoveModal}
+        title="Remove Product">
+        <p className="mb-2">
+          Deleting this product will remove it permanently from your inventory.
+          Any Associated data. sales history and other related information will
+          also be deleted. Please make sure this is the inrended action.{" "}
+        </p>
+        <div className="flex gap-2">
+          <Button
+            className=" text-white bg-red-500 font-semibold"
+            onClick={handleRemoveProduct}>
+            Remove
+          </Button>
+          <Button
+            className=" text-white bg-gray-300 font-semibold"
+            onClick={closeRemoveModal}>
+            Cancel
+          </Button>
+        </div>
+      </Modal>
+      <Toaster />
     </main>
   );
 }

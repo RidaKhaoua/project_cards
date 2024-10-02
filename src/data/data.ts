@@ -10,7 +10,7 @@ export const data: TProduct[] = [
         ducimus animi assumenda doloremque, ad quam deserunt reprehenderit
         tempore optio vel rerum?`,
     imageUrl: "https://i.pinimg.com/736x/cf/c7/8d/cfc78d125a3f3f9175064452b47bb8cc.jpg",
-    price: "500000",
+    price: "5000",
     color:["#FF0032", "#2563eb"],
     category: {
         name:"cars",
@@ -57,6 +57,21 @@ export const data: TProduct[] = [
     imageUrl: "https://cdn.motor1.com/images/mgl/W8GWyL/s1/pagani-imola-roadster.webp",
     price: "900000",
     color:["#FF0032", "#2563eb"],
+    category: {
+        name:"cars",
+        imageUrl: "https://cdn.motor1.com/images/mgl/W8GWyL/s1/pagani-imola-roadster.webp"
+    }
+  },
+  {
+    id: "5",
+    title: "Pagani 2024 TM0079",
+    description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo temporibus
+        ea molestias consequuntur quia fugiat incidunt dignissimos, dolorum
+        ducimus animi assumenda doloremque, ad quam deserunt reprehenderit
+        tempore optio vel rerum?`,
+    imageUrl: "https://cdn.motor1.com/images/mgl/W8GWyL/s1/pagani-imola-roadster.webp",
+    price: "900000",
+    color:[],
     category: {
         name:"cars",
         imageUrl: "https://cdn.motor1.com/images/mgl/W8GWyL/s1/pagani-imola-roadster.webp"
